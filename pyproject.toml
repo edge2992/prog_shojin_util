@@ -6,8 +6,15 @@ authors = ["edge2992 <torune.summer@gmail.com>"]
 readme = "README.md"
 packages = [{include = "atcoder_util_problem"}]
 
+[tool.poetry.scripts]
+atcoder-util-problem = "atcoder_util_problem.__main__:main"
+
 [tool.poetry.dependencies]
 python = "^3.7"
+click = "^8.1.6"
+
+[tool.black]
+line-length = 79
 
 
 [build-system]
