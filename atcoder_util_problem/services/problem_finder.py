@@ -6,7 +6,9 @@ class ProblemFinder:
     def __init__(self, parser):
         self.parser = parser
 
-    def find_problems(self, user, target, status, from_second=0):
+    def find_problems(
+        self, user, target, status, from_second=0, max_results=500
+    ):
         urls = LinkCollector(target).fetch_links()
 
         problems = [

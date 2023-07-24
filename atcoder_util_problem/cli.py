@@ -1,4 +1,5 @@
 import click
+from datetime import datetime, timedelta
 import pandas as pd
 from atcoder_util_problem.utils.contest_sites.atcoder.parser import (
     AtcoderParser,
@@ -14,19 +15,33 @@ from atcoder_util_problem.services.problem_finder import ProblemFinder
     "--status",
     type=click.Choice(["ac", "not-ac", "both"]),
     default="not-ac",
-    help="Filter problems based on the AC status.",
+    help="Filter problems based on the AC status. Default is 'not-ac'.",
 )
 @click.option(
     "--output",
     type=click.Choice(["json", "markdown", "csv"]),
     default="json",
-    help="Output format.",
+    help="Output format. Default is 'json'.",
 )
-def find_problems(user, target, status, output):
+@click.option(
+    "--since",
+    type=click.DateTime(),
+    default=(datetime.now() - timedelta(days=182)).strftime("%Y-%m-%d"),
+    help="Start datetime to filter problems. The format is 'YYYY-MM-DD' or 'YYYY-MM-DD HH:MM:SS'. Default is 6 months ago.",
+)
+@click.option(
+    "--max-results",
+    type=int,
+    default=500,
+    help="Maximum number of problems to return. Default is 500.",
+)
+def find_problems(user, target, status, output, since, max_results):
     """AtCoder Utility Tool for Problems."""
+    since = int(datetime.timestamp(since))
+
     parser = AtcoderParser()
     finder = ProblemFinder(parser)
-    problems = finder.find_problems(user, target, status)
+    problems = finder.find_problems(user, target, status, since, max_results)
 
     df = pd.DataFrame(problems)
     formatter = OutputFormatter(df)
