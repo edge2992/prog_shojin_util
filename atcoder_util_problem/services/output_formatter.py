@@ -7,7 +7,7 @@ class OutputFormatter:
         self.df = df
 
     def to_json(self) -> Optional[str]:
-        return self.df.to_json()
+        return self.df.to_json(orient="records")
 
     def to_csv(self) -> str:
         return self.df.to_csv()
