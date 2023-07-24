@@ -32,7 +32,7 @@ class ContestSiteParser(ABC):
         pass
 
     @classmethod
-    def get_contest_and_problem_id(cls, url: str) -> dict:
+    def parse(cls, url: str) -> dict:
         """URLからcontest_idとproblem_idを抽出する"""
         return {
             "problem_id": cls.extract_problem_id(url),

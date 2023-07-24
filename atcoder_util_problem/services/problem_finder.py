@@ -12,8 +12,7 @@ class ProblemFinder:
         problems = [
             problem
             for problem in (
-                {**self.parser.get_contest_and_problem_id(url), "url": url}
-                for url in urls
+                {**self.parser.parse(url), "url": url} for url in urls
             )
             if all(value is not None for value in problem.values())
         ]
