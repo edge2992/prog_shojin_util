@@ -1,6 +1,6 @@
-from .atcoder import Atcoder
-from .yukicoder import Yukicoder
-from .topcoder import Topcoder
+from .atcoder import AtcoderMatcher
+from .topcoder import TopcoderMatcher
+from .yukicoder import YukicoderMatcher
 
 
 def classify_urls_by_contest_sites(urls: list) -> dict:
@@ -9,7 +9,7 @@ def classify_urls_by_contest_sites(urls: list) -> dict:
     :param urls: list of urls
     :return: dict of urls classified by contest sites
     """
-    contest_sites = [Atcoder, Yukicoder, Topcoder]
+    contest_sites = [AtcoderMatcher, YukicoderMatcher, TopcoderMatcher]
     classified_urls = {
         contest_site._key_name: [] for contest_site in contest_sites
     }

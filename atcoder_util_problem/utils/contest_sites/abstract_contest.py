@@ -2,7 +2,7 @@ from abc import ABC
 import re
 
 
-class ContestSite(ABC):
+class ContestSiteMatcher(ABC):
     _pattern: str = ""
     _key_name: str = ""
     _compiled_pattern = None
