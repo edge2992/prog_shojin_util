@@ -15,13 +15,15 @@ from atcoder_util_problem.services.problem_finder import ProblemFinder
     "--status",
     type=click.Choice(["ac", "not-ac", "both"]),
     default="not-ac",
-    help="Filter problems based on the AC status. Default is 'not-ac'.",
+    show_default=True,
+    help="Filter problems based on the AC status.",
 )
 @click.option(
     "--output",
     type=click.Choice(["json", "markdown", "csv"]),
     default="json",
-    help="Output format. Default is 'json'.",
+    show_default=True,
+    help="Output format.",
 )
 @click.option(
     "--since",
@@ -33,7 +35,8 @@ from atcoder_util_problem.services.problem_finder import ProblemFinder
     "--max-results",
     type=int,
     default=500,
-    help="Maximum number of problems to return. Default is 500.",
+    show_default=True,
+    help="Maximum number of problems to return.",
 )
 def find_problems(user, target, status, output, since, max_results):
     """AtCoder Utility Tool for Problems."""
