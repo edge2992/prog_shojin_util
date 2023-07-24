@@ -1,5 +1,5 @@
-from .cli import find_not_solved_problems
+from .cli import find_problems
 
 
 def main():
-    find_not_solved_problems()
+    find_problems()
