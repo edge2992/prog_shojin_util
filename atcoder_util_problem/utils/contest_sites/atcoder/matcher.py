@@ -1,6 +1,6 @@
-from ..abstract_contest import ContestSiteMatcher
+from ..abstract import MatcherInterface
 
 
-class AtcoderMatcher(ContestSiteMatcher):
+class AtcoderMatcher(MatcherInterface):
     _pattern = r"https://atcoder\.jp.*"
     _key_name = "atcoder"
