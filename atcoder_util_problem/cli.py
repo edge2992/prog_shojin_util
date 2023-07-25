@@ -29,7 +29,7 @@ from atcoder_util_problem.services.problem_finder import ProblemFinder
     "--since",
     type=click.DateTime(),
     default=(datetime.now() - timedelta(days=182)).strftime("%Y-%m-%d"),
-    help="Start datetime to filter problems. The format is 'YYYY-MM-DD' or 'YYYY-MM-DD HH:MM:SS'. Default is 6 months ago.",
+    help="Start datetime to filter problems. The format is 'YYYY-MM-DD' or 'YYYY-MM-DD HH:MM:SS'. Default is 6 months ago.",  # noqa: E501
 )
 @click.option(
     "--max-results",

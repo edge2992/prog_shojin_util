@@ -1,23 +1,30 @@
 from atcoder_util_problem.scraper.link_collector import LinkCollector
+from atcoder_util_problem.utils.contest_sites.abstract import (
+    ParserInterface,
+)
 from atcoder_util_problem.utils.contest_sites.atcoder import AtcoderAPI
 from atcoder_util_problem.utils.contest_sites.abstract import APIUtils
 
 
 class ProblemFinder:
-    def __init__(self, parser):
+    def __init__(self, parser: ParserInterface):
         self.parser = parser
 
     def find_problems(
-        self, user, target, status, from_second=0, max_results=500
+        self,
+        user: str,
+        target: str,
+        status: str,
+        from_second: int = 0,
+        max_results: int = 500,
     ):
         urls = LinkCollector(target).fetch_links()
 
         problems = [
-            problem
-            for problem in (
-                {**self.parser.parse(url), "url": url} for url in urls
-            )
-            if all(value is not None for value in problem.values())
+            {**parsed, "url": url}
+            for url in urls
+            if (parsed := self.parser.parse(url)) is not None
+            and all(value is not None for value in parsed.values())
         ]
 
         if status == "both":
