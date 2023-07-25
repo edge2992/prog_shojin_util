@@ -1,9 +1,7 @@
 import click
 from datetime import datetime, timedelta
 import pandas as pd
-from atcoder_util_problem.utils.contest_sites.atcoder.parser import (
-    AtcoderParser,
-)
+from atcoder_util_problem.scraper.link_collector import LinkCollector
 from atcoder_util_problem.services.output_formatter import OutputFormatter
 from atcoder_util_problem.services.problem_finder import ProblemFinder
 
@@ -42,9 +40,9 @@ def find_problems(user, target, status, output, since, max_results):
     """AtCoder Utility Tool for Problems."""
     since = int(datetime.timestamp(since))
 
-    parser = AtcoderParser()
-    finder = ProblemFinder(parser)
-    problems = finder.find_problems(user, target, status, since, max_results)
+    urls = LinkCollector(target).fetch_links()
+    finder = ProblemFinder("Atcoder", urls)
+    problems = finder.find_problems(user, status, since, max_results)
 
     df = pd.DataFrame(problems)
     formatter = OutputFormatter(df)

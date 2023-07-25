@@ -29,14 +29,8 @@ SAMPLE_PROBLEMS = [
 
 @pytest.fixture
 def problem_finder(mocker):
-    return ProblemFinder(AtcoderParser())
-
-
-@pytest.fixture
-def mock_link_collector(mocker):
-    mocker.patch(
-        "atcoder_util_problem.scraper.link_collector.LinkCollector.fetch_links",  # noqa E501
-        return_value=[problem["url"] for problem in SAMPLE_PROBLEMS],
+    return ProblemFinder(
+        "Atcoder", [problem["url"] for problem in SAMPLE_PROBLEMS]
     )
 
 
@@ -48,10 +42,8 @@ def mock_ac_problems(mocker):
     )
 
 
-def test_find_problems_both_status(problem_finder, mock_link_collector):
-    problems = problem_finder.find_problems(
-        "dummy_user", "dummy_target", "both"
-    )
+def test_find_problems_both_status(problem_finder):
+    problems = problem_finder.find_problems("dummy_user", "both")
     assert len(problems) == 4
     print(problems)
     assert [problem["problem_id"] for problem in problems] == [
@@ -59,30 +51,22 @@ def test_find_problems_both_status(problem_finder, mock_link_collector):
     ]
 
 
-def test_find_problems_ac_status(
-    problem_finder, mock_link_collector, mock_ac_problems
-):
-    problems = problem_finder.find_problems("dummy_user", "dummy_target", "ac")
+def test_find_problems_ac_status(problem_finder, mock_ac_problems):
+    problems = problem_finder.find_problems("dummy_user", "ac")
     assert len(problems) == 2
     assert [problem["problem_id"] for problem in problems] == [
         p["problem_id"] for p in SAMPLE_PROBLEMS[:2]
     ]
 
 
-def test_find_problems_not_ac_status(
-    problem_finder, mock_link_collector, mock_ac_problems
-):
-    problems = problem_finder.find_problems(
-        "dummy_user", "dummy_target", "not-ac"
-    )
+def test_find_problems_not_ac_status(problem_finder, mock_ac_problems):
+    problems = problem_finder.find_problems("dummy_user", "not-ac")
     assert len(problems) == 2
     assert [problem["problem_id"] for problem in problems] == [
         p["problem_id"] for p in SAMPLE_PROBLEMS[2:]
     ]
 
 
-def test_find_problems_invalid_status(problem_finder, mock_link_collector):
+def test_find_problems_invalid_status(problem_finder):
     with pytest.raises(ValueError):
-        problem_finder.find_problems(
-            "dummy_user", "dummy_target", "invalid_status"
-        )
+        problem_finder.find_problems("dummy_user", "invalid_status")
