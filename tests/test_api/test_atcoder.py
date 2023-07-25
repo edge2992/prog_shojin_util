@@ -1,5 +1,4 @@
 import pytest
-from atcoder_util_problem.api.atcoder import AtcoderAPI
 from atcoder_util_problem.utils.contest_sites.atcoder import AtcoderAPI
 from atcoder_util_problem.utils.contest_sites.abstract import APIUtils
 
