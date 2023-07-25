@@ -1,5 +1,6 @@
 from atcoder_util_problem.scraper.link_collector import LinkCollector
-from atcoder_util_problem.api.atcoder import AtcoderAPI
+from atcoder_util_problem.utils.contest_sites.atcoder import AtcoderAPI
+from atcoder_util_problem.utils.contest_sites.abstract import APIUtils
 
 
 class ProblemFinder:
@@ -22,7 +23,7 @@ class ProblemFinder:
         if status == "both":
             return problems
 
-        ac_problems = AtcoderAPI.get_ac_problems(user, from_second)
+        ac_problems = APIUtils.get_ac_problems(AtcoderAPI(), user, from_second)
         ac_problem_ids = [problem["problem_id"] for problem in ac_problems]
 
         if status == "ac":
