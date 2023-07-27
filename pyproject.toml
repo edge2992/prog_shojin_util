@@ -1,14 +1,37 @@
 [tool.poetry]
-name = "atcoder-util-problem"
+name = "prog-shojin-util"
 version = "0.1.0"
 description = ""
 authors = ["edge2992 <torune.summer@gmail.com>"]
 readme = "README.md"
-packages = [{include = "atcoder_util_problem"}]
+packages = [{include = "prog_shojin_util"}]
+
+[tool.poetry.scripts]
+atcoder-util-problem = "prog_shojin_util.__main__:main"
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.9"
+click = "^8.1.6"
+beautifulsoup4 = "^4.12.2"
+requests = "^2.31.0"
+pandas = "^2.0.3"
+tabulate = "^0.9.0"
 
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+pytest-mock = "^3.11.1"
+flake8 = "^6.0.0"
+black = "^23.7.0"
+pyproject-flake8 = "^6.0.0.post1"
+
+[tool.black]
+line-length = 79
+
+[tool.flake8]
+max-line-length = 100
+per-file-ignores = """
+    */__init__.py:F401
+"""
 
 [build-system]
 requires = ["poetry-core"]
