@@ -1,5 +1,5 @@
-from atcoder_util_problem.utils.contest_site_factory import ContestSiteFactory
-from atcoder_util_problem.utils.contest_sites.abstract import APIUtils
+from prog_shojin_util.utils.contest_site_factory import ContestSiteFactory
+from prog_shojin_util.utils.contest_sites.abstract import APIUtils
 
 
 class ProblemFinder:
@@ -28,20 +28,23 @@ class ProblemFinder:
 
         ac_problems = APIUtils.get_ac_problems(self.api, user, from_second)
         ac_problem_ids = [
-            problem[self.api.get_problem_identifier_key()] for problem in ac_problems
+            problem[self.api.get_problem_identifier_key()]
+            for problem in ac_problems
         ]
 
         if status == "ac":
             return [
                 problem
                 for problem in problems
-                if problem[self.api.get_problem_identifier_key()] in ac_problem_ids
+                if problem[self.api.get_problem_identifier_key()]
+                in ac_problem_ids
             ]
         elif status == "not-ac":
             return [
                 problem
                 for problem in problems
-                if problem[self.api.get_problem_identifier_key()] not in ac_problem_ids
+                if problem[self.api.get_problem_identifier_key()]
+                not in ac_problem_ids
             ]
         else:
             raise ValueError(

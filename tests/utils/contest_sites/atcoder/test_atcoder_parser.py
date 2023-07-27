@@ -1,4 +1,4 @@
-from atcoder_util_problem.utils.contest_sites.atcoder import AtcoderParser
+from prog_shojin_util.utils.contest_sites.atcoder import AtcoderParser
 
 
 def test_atcoder_parser():

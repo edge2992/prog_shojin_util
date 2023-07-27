@@ -1,4 +1,4 @@
-from atcoder_util_problem.utils.contest_sites.yukicoder import YukicoderParser
+from prog_shojin_util.utils.contest_sites.yukicoder import YukicoderParser
 
 
 def test_yukicoder_parser():

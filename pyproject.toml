@@ -1,13 +1,13 @@
 [tool.poetry]
-name = "atcoder-util-problem"
+name = "prog-shojin-util"
 version = "0.1.0"
 description = ""
 authors = ["edge2992 <torune.summer@gmail.com>"]
 readme = "README.md"
-packages = [{include = "atcoder_util_problem"}]
+packages = [{include = "prog_shojin_util"}]
 
 [tool.poetry.scripts]
-atcoder-util-problem = "atcoder_util_problem.__main__:main"
+atcoder-util-problem = "prog_shojin_util.__main__:main"
 
 [tool.poetry.dependencies]
 python = "^3.9"

@@ -1,6 +1,6 @@
 import pytest
 from bs4 import BeautifulSoup
-from atcoder_util_problem.scraper.link_collector import LinkCollector
+from prog_shojin_util.scraper.link_collector import LinkCollector
 
 
 @pytest.fixture

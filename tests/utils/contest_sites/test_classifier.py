@@ -1,4 +1,4 @@
-from atcoder_util_problem.utils.contest_sites import (
+from prog_shojin_util.utils.contest_sites import (
     classify_urls_by_contest_sites,
 )
 

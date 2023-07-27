@@ -1,4 +1,4 @@
-from atcoder_util_problem.utils.contest_sites.abstract.matcher import (
+from prog_shojin_util.utils.contest_sites.abstract.matcher import (
     MatcherInterface,
 )
 

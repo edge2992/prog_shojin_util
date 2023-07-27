@@ -1,12 +1,12 @@
 import pytest
 from click.testing import CliRunner
-from atcoder_util_problem.cli import find_problems
+from prog_shojin_util.cli import find_problems
 
 
 @pytest.fixture
 def mock_fetch_links(mocker):
     return mocker.patch(
-        "atcoder_util_problem.scraper.link_collector.LinkCollector.fetch_links",  # noqa : E501
+        "prog_shojin_util.scraper.link_collector.LinkCollector.fetch_links",  # noqa : E501
         return_value=[
             "https://atcoder.jp/contests/abs/tasks/abc086_a",
             "https://atcoder.jp/contests/abs/tasks/abc086_b",
@@ -18,7 +18,7 @@ def mock_fetch_links(mocker):
 @pytest.fixture
 def mock_get_ac_problems(mocker):
     return mocker.patch(
-        "atcoder_util_problem.utils.contest_sites.abstract.APIUtils.get_ac_problems",  # noqa: E501
+        "prog_shojin_util.utils.contest_sites.abstract.APIUtils.get_ac_problems",  # noqa: E501
         return_value=[
             {"problem_id": "abc086_a"},
             {"problem_id": "abc086_b"},

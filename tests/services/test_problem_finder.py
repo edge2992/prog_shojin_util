@@ -1,6 +1,6 @@
 import pytest
-from atcoder_util_problem.utils.contest_sites.atcoder import AtcoderParser
-from atcoder_util_problem.services.problem_finder import ProblemFinder
+from prog_shojin_util.utils.contest_sites.atcoder import AtcoderParser
+from prog_shojin_util.services.problem_finder import ProblemFinder
 
 
 SAMPLE_PROBLEMS = [
@@ -37,7 +37,7 @@ def problem_finder(mocker):
 @pytest.fixture
 def mock_ac_problems(mocker):
     mocker.patch(
-        "atcoder_util_problem.utils.contest_sites.abstract.APIUtils.get_ac_problems",  # noqa E501
+        "prog_shojin_util.utils.contest_sites.abstract.APIUtils.get_ac_problems",  # noqa E501
         return_value=SAMPLE_PROBLEMS[:2],
     )
 

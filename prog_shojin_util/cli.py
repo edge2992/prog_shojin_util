@@ -1,9 +1,9 @@
 import click
 from datetime import datetime, timedelta
 import pandas as pd
-from atcoder_util_problem.scraper.link_collector import LinkCollector
-from atcoder_util_problem.services.output_formatter import OutputFormatter
-from atcoder_util_problem.services.problem_finder import ProblemFinder
+from prog_shojin_util.scraper.link_collector import LinkCollector
+from prog_shojin_util.services.output_formatter import OutputFormatter
+from prog_shojin_util.services.problem_finder import ProblemFinder
 
 
 @click.command()
