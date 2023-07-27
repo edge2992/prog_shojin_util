@@ -6,7 +6,7 @@ BASE_URL = "https://kenkoooo.com/atcoder/atcoder-api/v3"
 
 
 class AtcoderAPI(APIInterface):
-    def fetch_submissions(self, user_id: str, from_second: int) -> list[dict]:
+    def _fetch_submissions(self, user_id: str, from_second: int) -> list[dict]:
         endpoint = f"{BASE_URL}/user/submissions"
         params = {"user": user_id, "from_second": from_second}
 
@@ -15,8 +15,12 @@ class AtcoderAPI(APIInterface):
 
         return response.json()
 
-    def filter_ac_problems(self, submissions: list[dict]) -> list[dict]:
+    def _filter_ac_problems(self, submissions: list[dict]) -> list[dict]:
         return [sub for sub in submissions if sub["result"] == "AC"]
 
-    def get_problem_id_key(self) -> str:
+    def get_ac_problems(self, user: str, from_second: int) -> list[dict]:
+        submissions = self._fetch_submissions(user, from_second)
+        return self._filter_ac_problems(submissions)
+
+    def get_problem_identifier_key(self) -> str:
         return "problem_id"

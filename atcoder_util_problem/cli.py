@@ -7,7 +7,10 @@ from atcoder_util_problem.services.problem_finder import ProblemFinder
 
 
 @click.command()
-@click.option("-u", "--user", required=True, help="User ID for AtCoder.")
+@click.option("--atcoder-user", default=None, help="User ID for AtCoder.")
+@click.option(
+    "--yukicoder-user", default=None, help="User Name for Yukicoder."
+)
 @click.option("-t", "--target", required=True, help="Target URL to process.")
 @click.option(
     "--status",
@@ -36,15 +39,25 @@ from atcoder_util_problem.services.problem_finder import ProblemFinder
     show_default=True,
     help="Maximum number of problems to return.",
 )
-def find_problems(user, target, status, output, since, max_results):
+def find_problems(
+    atcoder_user, yukicoder_user, target, status, output, since, max_results
+):
     """AtCoder Utility Tool for Problems."""
-    since = int(datetime.timestamp(since))
+    contest_user_data = [
+        ("Atcoder", atcoder_user),
+        # ("Yukicoder", yukicoder_user),
+    ]
 
     urls = LinkCollector(target).fetch_links()
-    finder = ProblemFinder("Atcoder", urls)
-    problems = finder.find_problems(user, status, since, max_results)
+    since = int(datetime.timestamp(since))
+    dfs: list[pd.DataFrame] = []
 
-    df = pd.DataFrame(problems)
+    for contest, user in contest_user_data:
+        finder = ProblemFinder(contest, urls)
+        problems = finder.find_problems(user, status, since, max_results)
+        dfs.append(pd.DataFrame(problems))
+
+    df = pd.concat(dfs, ignore_index=True)
     formatter = OutputFormatter(df)
 
     if output == "json":

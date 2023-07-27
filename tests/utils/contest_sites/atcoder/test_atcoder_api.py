@@ -16,18 +16,18 @@ def mock_fetch_submissions(monkeypatch):
     def mock_fetch(*args, **kwargs):
         return SAMPLE_SUBMISSIONS
 
-    monkeypatch.setattr(AtcoderAPI, "fetch_submissions", mock_fetch)
+    monkeypatch.setattr(AtcoderAPI, "_fetch_submissions", mock_fetch)
 
 
 def test_filter_ac_problems():
-    ac_problems = AtcoderAPI().filter_ac_problems(SAMPLE_SUBMISSIONS)
+    ac_problems = AtcoderAPI()._filter_ac_problems(SAMPLE_SUBMISSIONS)
     assert len(ac_problems) == 3
     assert all(problem["result"] == "AC" for problem in ac_problems)
 
 
 def test_remove_duplicate_problems():
     ac = AtcoderAPI()
-    problems = ac.filter_ac_problems(SAMPLE_SUBMISSIONS)
+    problems = ac._filter_ac_problems(SAMPLE_SUBMISSIONS)
     unique_problems = APIUtils.remove_duplicate_problems(ac, problems)
     assert len(unique_problems) == 2
     problem_ids = [problem["problem_id"] for problem in unique_problems]
