@@ -45,7 +45,7 @@ def find_problems(
     """AtCoder Utility Tool for Problems."""
     contest_user_data = [
         ("Atcoder", atcoder_user),
-        # ("Yukicoder", yukicoder_user),
+        ("Yukicoder", yukicoder_user),
     ]
 
     urls = LinkCollector(target).fetch_links()

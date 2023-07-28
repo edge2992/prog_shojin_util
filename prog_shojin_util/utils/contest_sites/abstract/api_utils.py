@@ -22,6 +22,9 @@ class APIUtils:
     def get_ac_problems(
         api: APIInterface, user: str, from_second: int
     ) -> list[dict]:
+        if user is None:
+            return []
+
         ac_problems = api.get_ac_problems(user, from_second)
         unique_ac_problems = APIUtils.remove_duplicate_problems(
             api, ac_problems

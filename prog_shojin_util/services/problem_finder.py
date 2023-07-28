@@ -26,6 +26,10 @@ class ProblemFinder:
         if status == "both":
             return problems
 
+        # 対象となるコンテストサイトがないので、空のリストを返す。
+        if len(problems) == 0:
+            return problems
+
         ac_problems = APIUtils.get_ac_problems(self.api, user, from_second)
         ac_problem_ids = [
             problem[self.api.get_problem_identifier_key()]
