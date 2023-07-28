@@ -16,5 +16,5 @@ class YukicoderParser(ParserInterface):
     @classmethod
     def parse(cls, url: str) -> dict:
         return {
-            "problem_id": cls.extract_problem_id(url),
+            "No": cls.extract_problem_id(url),
         }
