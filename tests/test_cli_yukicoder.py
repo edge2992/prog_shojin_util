@@ -1,5 +1,6 @@
 import pytest
 from click.testing import CliRunner
+
 from prog_shojin_util.cli import find_problems
 
 # Yukicoder用のモックデータ

@@ -1,4 +1,5 @@
 import requests
+
 from ..abstract import APIInterface
 
 BASE_URL = "https://yukicoder.me/api/v1"

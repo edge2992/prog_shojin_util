@@ -1,5 +1,5 @@
-from prog_shojin_util.utils.contest_sites.yukicoder import YukicoderParser
 from prog_shojin_util.utils.contest_sites.abstract import ParsedProblem
+from prog_shojin_util.utils.contest_sites.yukicoder import YukicoderParser
 
 
 def test_yukicoder_parser():

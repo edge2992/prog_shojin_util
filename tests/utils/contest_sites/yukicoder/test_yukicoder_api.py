@@ -1,8 +1,9 @@
+from unittest.mock import Mock
+
 import pytest
 import requests
-from unittest.mock import Mock
-from prog_shojin_util.utils.contest_sites.yukicoder import YukicoderAPI
 
+from prog_shojin_util.utils.contest_sites.yukicoder import YukicoderAPI
 
 # モック用のデータ
 SAMPLE_USER = {"Id": 12345}
@@ -38,9 +39,7 @@ def mock_get_user_id_from_name(monkeypatch):
     def mock_get_user_id(*args, **kwargs):
         return SAMPLE_USER["Id"]
 
-    monkeypatch.setattr(
-        YukicoderAPI, "_get_user_id_from_name", mock_get_user_id
-    )
+    monkeypatch.setattr(YukicoderAPI, "_get_user_id_from_name", mock_get_user_id)
 
 
 @pytest.fixture

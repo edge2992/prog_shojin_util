@@ -1,5 +1,6 @@
-import requests
 from typing import Optional
+
+import requests
 from bs4 import BeautifulSoup
 
 
@@ -26,9 +27,7 @@ class LinkCollector:
     def _extract_links(self, soup: BeautifulSoup) -> list[str]:
         link_elements = soup.find_all("a")
         links = [
-            link.get("href")
-            for link in link_elements
-            if link.get("href") is not None
+            link.get("href") for link in link_elements if link.get("href") is not None
         ]
         return links
 

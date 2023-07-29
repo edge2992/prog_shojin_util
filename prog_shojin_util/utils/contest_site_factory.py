@@ -1,10 +1,6 @@
-from .contest_sites.atcoder import AtcoderParser, AtcoderAPI, AtcoderMatcher
-from .contest_sites.yukicoder import (
-    YukicoderMatcher,
-    YukicoderParser,
-    YukicoderAPI,
-)
+from .contest_sites.atcoder import AtcoderAPI, AtcoderMatcher, AtcoderParser
 from .contest_sites.topcoder import TopcoderMatcher
+from .contest_sites.yukicoder import YukicoderAPI, YukicoderMatcher, YukicoderParser
 
 
 class ContestSiteFactory:

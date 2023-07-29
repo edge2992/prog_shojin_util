@@ -1,5 +1,6 @@
 import pytest
 from click.testing import CliRunner
+
 from prog_shojin_util.cli import find_problems
 
 
@@ -74,9 +75,7 @@ def test_find_not_ac_problems_cli(
 
 
 # 以下のテストは"both"のステータスを持つ問題を検索します。
-def test_find_both_problems_cli(
-    mock_fetch_links_atcoder, mock_get_ac_problems_atcoder
-):
+def test_find_both_problems_cli(mock_fetch_links_atcoder, mock_get_ac_problems_atcoder):
     runner = CliRunner()
     result = runner.invoke(
         find_problems,

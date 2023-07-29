@@ -1,11 +1,10 @@
-import pandas as pd
 from dataclasses import dataclass
 from typing import Optional
-from prog_shojin_util.utils.contest_site_factory import ContestSiteFactory
 
-from prog_shojin_util.utils.contest_sites.abstract.parser import (
-    ParserInterface,
-)
+import pandas as pd
+
+from prog_shojin_util.utils.contest_site_factory import ContestSiteFactory
+from prog_shojin_util.utils.contest_sites.abstract.parser import ParserInterface
 
 
 @dataclass

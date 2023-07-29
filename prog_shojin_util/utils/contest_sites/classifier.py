@@ -10,9 +10,7 @@ def classify_urls_by_contest_sites(urls: list) -> dict:
     :return: dict of urls classified by contest sites
     """
     contest_sites = [AtcoderMatcher, YukicoderMatcher, TopcoderMatcher]
-    classified_urls = {
-        contest_site._key_name: [] for contest_site in contest_sites
-    }
+    classified_urls = {contest_site._key_name: [] for contest_site in contest_sites}
     classified_urls["others"] = []
 
     for url in urls:

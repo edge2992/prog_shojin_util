@@ -1,5 +1,6 @@
 import pytest
 from bs4 import BeautifulSoup
+
 from prog_shojin_util.scraper.link_collector import LinkCollector
 
 

@@ -26,9 +26,7 @@ class APIUtils:
             return []
 
         ac_problems = api.get_ac_problems(user, from_second)
-        unique_ac_problems = APIUtils.remove_duplicate_problems(
-            api, ac_problems
-        )
+        unique_ac_problems = APIUtils.remove_duplicate_problems(api, ac_problems)
         return unique_ac_problems
 
     @staticmethod

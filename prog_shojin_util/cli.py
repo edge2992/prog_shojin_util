@@ -1,5 +1,7 @@
+from datetime import datetime
+
 import click
-from datetime import datetime, timedelta
+
 from prog_shojin_util.logging_config import setup_logging
 from prog_shojin_util.scraper.link_collector import LinkCollector
 from prog_shojin_util.services.output_formatter import OutputFormatter

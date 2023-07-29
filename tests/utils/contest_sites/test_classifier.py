@@ -1,6 +1,4 @@
-from prog_shojin_util.utils.contest_sites import (
-    classify_urls_by_contest_sites,
-)
+from prog_shojin_util.utils.contest_sites import classify_urls_by_contest_sites
 
 
 def test_classify_urls_by_contest_sites():
@@ -22,6 +20,4 @@ def test_classify_urls_by_contest_sites():
 
     result = classify_urls_by_contest_sites(urls)
 
-    assert (
-        result == expected_output
-    ), f"Expected {expected_output}, but got {result}"
+    assert result == expected_output, f"Expected {expected_output}, but got {result}"

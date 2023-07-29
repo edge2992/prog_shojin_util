@@ -1,8 +1,9 @@
-import pytest
-from click.testing import CliRunner
-from prog_shojin_util.cli import find_problems
 import json
 
+import pytest
+from click.testing import CliRunner
+
+from prog_shojin_util.cli import find_problems
 
 SAMPLE_ATCODER_PROBLEM_LINKS = [
     "https://atcoder.jp/contests/abs/tasks/abc086_a",

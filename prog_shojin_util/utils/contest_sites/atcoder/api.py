@@ -1,9 +1,7 @@
-import hashlib
-import json
-import time
-import requests
 import logging
-import os
+import time
+
+import requests
 
 from prog_shojin_util.utils.cache import CacheManager
 
@@ -39,13 +37,9 @@ class AtcoderAPI(APIInterface):
         )
         logger.debug(f"Writing cache for user {user_id}.")
 
-    def _get_submissions_from_api(
-        self, user_id: str, from_second: int
-    ) -> list:
+    def _get_submissions_from_api(self, user_id: str, from_second: int) -> list:
         params = {"user": user_id, "from_second": from_second}
-        logger.debug(
-            f"Fetching submissions for user {user_id} from {from_second}"
-        )
+        logger.debug(f"Fetching submissions for user {user_id} from {from_second}")
         response = requests.get(self.SUBMISSION_ENDPOINT, params=params)
         response.raise_for_status()
 

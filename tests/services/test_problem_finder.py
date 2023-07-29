@@ -1,7 +1,6 @@
 import pytest
-from prog_shojin_util.utils.contest_sites.atcoder import AtcoderParser
-from prog_shojin_util.services.problem_finder import ProblemFinder
 
+from prog_shojin_util.services.problem_finder import ProblemFinder
 
 SAMPLE_PROBLEMS = [
     {
@@ -29,9 +28,7 @@ SAMPLE_PROBLEMS = [
 
 @pytest.fixture
 def problem_finder(mocker):
-    return ProblemFinder(
-        "Atcoder", [problem["url"] for problem in SAMPLE_PROBLEMS]
-    )
+    return ProblemFinder("Atcoder", [problem["url"] for problem in SAMPLE_PROBLEMS])
 
 
 @pytest.fixture

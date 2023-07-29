@@ -1,8 +1,7 @@
 from typing import Optional
+
 from prog_shojin_util.utils.contest_site_factory import ContestSiteFactory
-from prog_shojin_util.utils.contest_sites import (
-    APIUtils,
-)
+from prog_shojin_util.utils.contest_sites import APIUtils
 
 
 class ProblemFinder:
@@ -53,6 +52,4 @@ class ProblemFinder:
                 if self._get_parsed_problem(url) not in ac_problem_ids
             ]
         else:
-            raise ValueError(
-                "status must be ac, not-ac or both. not {}".format(status)
-            )
+            raise ValueError("status must be ac, not-ac or both. not {}".format(status))

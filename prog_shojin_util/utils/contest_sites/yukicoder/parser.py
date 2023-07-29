@@ -1,6 +1,7 @@
 import re
 from typing import Optional
-from ..abstract import ParserInterface, ParsedProblem
+
+from ..abstract import ParsedProblem, ParserInterface
 
 
 class YukicoderParser(ParserInterface):

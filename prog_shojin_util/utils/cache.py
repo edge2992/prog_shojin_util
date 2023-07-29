@@ -21,21 +21,15 @@ class CacheManager:
         return os.path.join(CACHE_DIR, f"{hashed_key}.json")
 
     def read(self, class_name: str, method_name: str, params_dict: dict):
-        cache_file = self._get_cache_filename(
-            class_name, method_name, params_dict
-        )
+        cache_file = self._get_cache_filename(class_name, method_name, params_dict)
         if os.path.exists(cache_file):
             with open(cache_file, "r") as f:
                 return json.load(f)
         return None
 
-    def write(
-        self, class_name, method_name: str, params_dict: dict, data: list
-    ):
+    def write(self, class_name, method_name: str, params_dict: dict, data: list):
         if not os.path.exists(CACHE_DIR):
             os.makedirs(CACHE_DIR)
-        cache_file = self._get_cache_filename(
-            class_name, method_name, params_dict
-        )
+        cache_file = self._get_cache_filename(class_name, method_name, params_dict)
         with open(cache_file, "w") as f:
             json.dump(data, f)
