@@ -1,0 +1,10 @@
+__version__ = "0.1.0"
+__title__ = "prog_shojin_util"
+__description__ = "extracting and filtering problems"
+__url__ = "https://prog_shojin_util.readthedocs.io"
+__uri__ = __url__
+__doc__ = __description__ + " <" + __uri__ + ">"
+__author__ = "Kazuya Isawa"
+__email__ = "torune.summer@gmail.com"
+__license__ = "MIT"
+__copyright__ = "Copyright 2023 Kazuya Isawa"
