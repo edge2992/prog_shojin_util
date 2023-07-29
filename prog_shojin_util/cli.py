@@ -50,15 +50,14 @@ def find_problems(
 
     urls = LinkCollector(target).fetch_links()
     since = int(datetime.timestamp(since))
-    dfs: list[pd.DataFrame] = []
+    results = {}  # {contest: [problems]}
 
     for contest, user in contest_user_data:
         finder = ProblemFinder(contest, urls)
         problems = finder.find_problems(user, status, since, max_results)
-        dfs.append(pd.DataFrame(problems))
+        results[contest] = problems
 
-    df = pd.concat(dfs, ignore_index=True)
-    formatter = OutputFormatter(df)
+    formatter = OutputFormatter(results)
 
     if output == "json":
         click.echo(formatter.to_json())
