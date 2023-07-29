@@ -1,5 +1,8 @@
 # prog_shojin_util
 
+[![Python CI](https://github.com/edge2992/prog_shojin_util/actions/workflows/python-package.yml/badge.svg?branch=main)](https://github.com/edge2992/prog_shojin_util/actions/workflows/python-package.yml)
+[![codecov](https://codecov.io/gh/edge2992/prog_shojin_util/branch/main/graph/badge.svg?token=74WPEN5WLV)](https://codecov.io/gh/edge2992/prog_shojin_util)
+
 ## Introduction
 
 `prog-shojin-util` is a CLI utility tool designed to fetch competitive programming problems from popular platforms like AtCoder and Yukicoder. The tool allows users to filter problems based on various criteria such as AC status, date range, and more.
