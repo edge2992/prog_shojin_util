@@ -30,3 +30,16 @@ class APIUtils:
             api, ac_problems
         )
         return unique_ac_problems
+
+    @staticmethod
+    def get_ac_problems_id_set(
+        api: APIInterface, user: str, from_second: int
+    ) -> set[str]:
+        unique_ac_problems = APIUtils.get_ac_problems(api, user, from_second)
+        ac_problem_ids = set(
+            [
+                problem[api.get_problem_identifier_key()]
+                for problem in unique_ac_problems
+            ]
+        )
+        return ac_problem_ids

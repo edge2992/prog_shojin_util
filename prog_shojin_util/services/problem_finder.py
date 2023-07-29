@@ -36,12 +36,8 @@ class ProblemFinder:
         if len(problems) == 0:
             return problems
 
-        ac_problems = APIUtils.get_ac_problems(self.api, user, from_second)
-        ac_problem_ids = set(
-            [
-                problem[self.api.get_problem_identifier_key()]
-                for problem in ac_problems
-            ]
+        ac_problem_ids = APIUtils.get_ac_problems_id_set(
+            self.api, user, from_second
         )
 
         if status == "ac":
