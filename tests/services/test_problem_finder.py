@@ -46,25 +46,19 @@ def test_find_problems_both_status(problem_finder):
     problems = problem_finder.find_problems("dummy_user", "both")
     assert len(problems) == 4
     print(problems)
-    assert [problem["problem_id"] for problem in problems] == [
-        p["problem_id"] for p in SAMPLE_PROBLEMS
-    ]
+    assert problems == [p["url"] for p in SAMPLE_PROBLEMS]
 
 
 def test_find_problems_ac_status(problem_finder, mock_ac_problems):
     problems = problem_finder.find_problems("dummy_user", "ac")
     assert len(problems) == 2
-    assert [problem["problem_id"] for problem in problems] == [
-        p["problem_id"] for p in SAMPLE_PROBLEMS[:2]
-    ]
+    assert problems == [p["url"] for p in SAMPLE_PROBLEMS[:2]]
 
 
 def test_find_problems_not_ac_status(problem_finder, mock_ac_problems):
     problems = problem_finder.find_problems("dummy_user", "not-ac")
     assert len(problems) == 2
-    assert [problem["problem_id"] for problem in problems] == [
-        p["problem_id"] for p in SAMPLE_PROBLEMS[2:]
-    ]
+    assert problems == [p["url"] for p in SAMPLE_PROBLEMS[2:]]
 
 
 def test_find_problems_invalid_status(problem_finder):

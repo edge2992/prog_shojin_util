@@ -1,6 +1,6 @@
 import re
 from typing import Optional
-from ..abstract.parser import ParserInterface
+from ..abstract import ParserInterface, ParsedProblem
 
 
 class YukicoderParser(ParserInterface):
@@ -14,7 +14,9 @@ class YukicoderParser(ParserInterface):
         return None
 
     @classmethod
-    def parse(cls, url: str) -> dict:
-        return {
-            "No": cls.extract_problem_id(url),
-        }
+    def parse(cls, url: str) -> Optional[ParsedProblem]:
+        problem_id = cls.extract_problem_id(url)
+        if problem_id is None:
+            return None
+
+        return ParsedProblem(problem_id=problem_id)

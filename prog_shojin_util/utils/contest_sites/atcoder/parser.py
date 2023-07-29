@@ -1,6 +1,6 @@
 import re
 from typing import Optional
-from ..abstract import ParserInterface
+from ..abstract import ParserInterface, ParsedProblem
 
 
 class AtcoderParser(ParserInterface):
@@ -26,9 +26,10 @@ class AtcoderParser(ParserInterface):
         return None
 
     @classmethod
-    def parse(cls, url: str) -> dict:
+    def parse(cls, url: str) -> Optional[ParsedProblem]:
         """URLからcontest_idとproblem_idを抽出する"""
-        return {
-            "problem_id": cls.extract_problem_id(url),
-            "contest_id": cls.extract_contest_id(url),
-        }
+        problem_id = cls.extract_problem_id(url)
+        if problem_id is None:
+            return None
+
+        return ParsedProblem(problem_id=problem_id)

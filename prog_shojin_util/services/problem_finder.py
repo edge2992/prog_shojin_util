@@ -1,13 +1,24 @@
+from typing import Optional
 from prog_shojin_util.utils.contest_site_factory import ContestSiteFactory
-from prog_shojin_util.utils.contest_sites.abstract import APIUtils
+from prog_shojin_util.utils.contest_sites.abstract import (
+    APIUtils,
+)
 
 
 class ProblemFinder:
     def __init__(self, site_name: str, urls: list[str]):
         self.factory = ContestSiteFactory(site_name)
         self.parser = self.factory.get_parser()
+        self.matcher = self.factory.get_matcher()
         self.api = self.factory.get_api()
         self.urls = urls
+
+    def _get_parsed_problem(self, url: str) -> Optional[str]:
+        parsed_problem = self.parser.parse(url)
+        if parsed_problem is None:
+            return None
+
+        return parsed_problem.problem_id
 
     def find_problems(
         self,
@@ -15,13 +26,8 @@ class ProblemFinder:
         status: str,
         from_second: int = 0,
         max_results: int = 500,
-    ):
-        problems = [
-            {**parsed, "url": url}
-            for url in self.urls
-            if (parsed := self.parser.parse(url)) is not None
-            and all(value is not None for value in parsed.values())
-        ]
+    ) -> list[str]:
+        problems = [url for url in self.urls if self.matcher.match(url)]
 
         if status == "both":
             return problems
@@ -31,24 +37,24 @@ class ProblemFinder:
             return problems
 
         ac_problems = APIUtils.get_ac_problems(self.api, user, from_second)
-        ac_problem_ids = [
-            problem[self.api.get_problem_identifier_key()]
-            for problem in ac_problems
-        ]
+        ac_problem_ids = set(
+            [
+                problem[self.api.get_problem_identifier_key()]
+                for problem in ac_problems
+            ]
+        )
 
         if status == "ac":
             return [
-                problem
-                for problem in problems
-                if problem[self.api.get_problem_identifier_key()]
-                in ac_problem_ids
+                url
+                for url in problems
+                if self._get_parsed_problem(url) in ac_problem_ids
             ]
         elif status == "not-ac":
             return [
-                problem
-                for problem in problems
-                if problem[self.api.get_problem_identifier_key()]
-                not in ac_problem_ids
+                url
+                for url in problems
+                if self._get_parsed_problem(url) not in ac_problem_ids
             ]
         else:
             raise ValueError(
