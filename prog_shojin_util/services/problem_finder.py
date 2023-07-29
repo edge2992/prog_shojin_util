@@ -25,7 +25,7 @@ class ProblemFinder:
         user: str,
         status: str,
         from_second: int = 0,
-        max_results: int = 500,
+        use_cache: bool = True,
     ) -> list[str]:
         problems = [url for url in self.urls if self.matcher.match(url)]
 
@@ -37,7 +37,7 @@ class ProblemFinder:
             return problems
 
         ac_problem_ids = APIUtils.get_ac_problems_id_set(
-            self.api, user, from_second
+            self.api, user, from_second, use_cache
         )
 
         if status == "ac":

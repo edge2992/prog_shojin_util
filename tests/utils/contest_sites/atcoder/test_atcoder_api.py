@@ -37,7 +37,7 @@ def test_remove_duplicate_problems():
 
 def test_get_ac_problems(mock_fetch_submissions):
     ac = AtcoderAPI()
-    problems = APIUtils.get_ac_problems(ac, "chokudai", 1560046356)
+    problems = APIUtils.get_ac_problems(ac, "chokudai", 1560046356, False)
     assert len(problems) == 2
     problem_ids = [problem["problem_id"] for problem in problems]
     assert "abc121_c" in problem_ids

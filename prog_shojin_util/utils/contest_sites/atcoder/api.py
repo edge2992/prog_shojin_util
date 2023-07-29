@@ -46,14 +46,17 @@ class AtcoderAPI(APIInterface):
         ).hexdigest()
         return os.path.join(CACHE_DIR, f"{hashed_key}.json")
 
-    def _fetch_submissions(self, user_id: str, from_second: int) -> list[dict]:
+    def _fetch_submissions(
+        self, user_id: str, from_second: int, use_cache: bool
+    ) -> list[dict]:
         iter_second = from_second
         all_submissions = []
 
-        cached_data = self._read_from_cache(user_id, from_second)
-        if cached_data:
-            all_submissions.extend(cached_data)
-            iter_second = all_submissions[-1]["epoch_second"] + 1
+        if use_cache:
+            cached_data = self._read_from_cache(user_id, from_second)
+            if cached_data:
+                all_submissions.extend(cached_data)
+                iter_second = all_submissions[-1]["epoch_second"] + 1
 
         while True:
             endpoint = f"{BASE_URL}/user/submissions"
@@ -84,8 +87,10 @@ class AtcoderAPI(APIInterface):
     def _filter_ac_problems(self, submissions: list[dict]) -> list[dict]:
         return [sub for sub in submissions if sub["result"] == "AC"]
 
-    def get_ac_problems(self, user: str, from_second: int) -> list[dict]:
-        submissions = self._fetch_submissions(user, from_second)
+    def get_ac_problems(
+        self, user: str, from_second: int, use_cache=True
+    ) -> list[dict]:
+        submissions = self._fetch_submissions(user, from_second, use_cache)
         return self._filter_ac_problems(submissions)
 
     def get_problem_identifier_key(self) -> str:

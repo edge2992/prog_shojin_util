@@ -20,7 +20,7 @@ class APIUtils:
 
     @staticmethod
     def get_ac_problems(
-        api: APIInterface, user: str, from_second: int
+        api: APIInterface, user: str, from_second: int, use_cache: bool = True
     ) -> list[dict]:
         if user is None:
             return []
@@ -33,7 +33,7 @@ class APIUtils:
 
     @staticmethod
     def get_ac_problems_id_set(
-        api: APIInterface, user: str, from_second: int
+        api: APIInterface, user: str, from_second: int, use_cache: bool = True
     ) -> set[str]:
         unique_ac_problems = APIUtils.get_ac_problems(api, user, from_second)
         ac_problem_ids = set(

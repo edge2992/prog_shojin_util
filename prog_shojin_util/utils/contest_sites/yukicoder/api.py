@@ -15,7 +15,10 @@ class YukicoderAPI(APIInterface):
         user_data = response.json()
         return user_data["Id"]
 
-    def get_ac_problems(self, user: str, from_second: int) -> list[dict]:
+    def get_ac_problems(
+        self, user: str, from_second: int, use_cache=True
+    ) -> list[dict]:
+        # TODO: Implement caching
         user_id = self._get_user_id_from_name(user)
         endpoint = f"{BASE_URL}/solved/id/{user_id}"
         headers = {"accept": "application/json"}
