@@ -1,4 +1,4 @@
-from .api import APIInterface
+from .abstract import APIInterface
 
 
 class APIUtils:

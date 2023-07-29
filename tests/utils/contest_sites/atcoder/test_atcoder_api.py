@@ -1,6 +1,6 @@
 import pytest
 from prog_shojin_util.utils.contest_sites.atcoder import AtcoderAPI
-from prog_shojin_util.utils.contest_sites.abstract import APIUtils
+from prog_shojin_util.utils.contest_sites import APIUtils
 
 # モック用のデータ
 SAMPLE_SUBMISSIONS = [

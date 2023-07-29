@@ -1,6 +1,6 @@
 from typing import Optional
 from prog_shojin_util.utils.contest_site_factory import ContestSiteFactory
-from prog_shojin_util.utils.contest_sites.abstract import (
+from prog_shojin_util.utils.contest_sites import (
     APIUtils,
 )
 

@@ -18,7 +18,7 @@ def mock_fetch_links(mocker):
 @pytest.fixture
 def mock_get_ac_problems(mocker):
     return mocker.patch(
-        "prog_shojin_util.utils.contest_sites.abstract.APIUtils.get_ac_problems",  # noqa: E501
+        "prog_shojin_util.utils.contest_sites.APIUtils.get_ac_problems",  # noqa: E501
         return_value=[
             {"problem_id": "abc086_a"},
             {"problem_id": "abc086_b"},

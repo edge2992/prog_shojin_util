@@ -37,7 +37,7 @@ def problem_finder(mocker):
 @pytest.fixture
 def mock_ac_problems(mocker):
     mocker.patch(
-        "prog_shojin_util.utils.contest_sites.abstract.APIUtils.get_ac_problems",  # noqa E501
+        "prog_shojin_util.utils.contest_sites.APIUtils.get_ac_problems",  # noqa E501
         return_value=SAMPLE_PROBLEMS[:2],
     )
 
