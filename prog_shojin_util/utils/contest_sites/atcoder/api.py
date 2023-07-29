@@ -5,46 +5,38 @@ import requests
 import logging
 import os
 
+from prog_shojin_util.utils.cache import CacheManager
+
 from ..abstract import APIInterface
 
 BASE_URL = "https://kenkoooo.com/atcoder/atcoder-api/v3"
-CACHE_DIR = os.path.expanduser("~/.cache/prog-shojin-util")
 logger = logging.getLogger(__name__)
 
 
 class AtcoderAPI(APIInterface):
     SUBMISSION_LIMIT = 500
 
-    def _read_from_cache(self, user_id: str, from_second: int):
-        cache_file = self._get_cache_filename(user_id, from_second)
-        if os.path.exists(cache_file):
-            logger.debug(
-                f"Reading cached data for user {user_id} from {cache_file}."
-            )
-            with open(cache_file, "r") as f:
-                return json.load(f)
-        logger.debug(f"No cache found for user {user_id} at {cache_file}.")
-        return None
+    def __init__(self):
+        self.cache_manager = CacheManager()
 
-    def _write_to_cache(self, user_id: str, from_second: int, data: list):
-        if not os.path.exists(CACHE_DIR):
-            os.makedirs(CACHE_DIR)
-            logger.debug(
-                f"Cache directory {CACHE_DIR} not found. Created new one."
-            )
-        cache_file = self._get_cache_filename(user_id, from_second)
-        with open(cache_file, "w") as f:
-            json.dump(data, f)
-        logger.debug(
-            f"Saved data for user {user_id} to cache at {cache_file}."
+    def _read_from_cache(self, user_id: str, from_second: int):
+        param_dict = {"user_id": user_id, "from_second": from_second}
+        data = self.cache_manager.read(
+            self.__class__.__name__, "_fetch_submissions", param_dict
         )
 
-    @staticmethod
-    def _get_cache_filename(user_id: str, from_second: int) -> str:
-        hashed_key = hashlib.md5(
-            f"{user_id}_{from_second}".encode()
-        ).hexdigest()
-        return os.path.join(CACHE_DIR, f"{hashed_key}.json")
+        if data:
+            logger.debug(f"Reading cached data for user {user_id}).")
+        else:
+            logger.debug(f"No cache found for user {user_id}.")
+        return data
+
+    def _write_to_cache(self, user_id: str, from_second: int, data: list):
+        param_dict = {"user_id": user_id, "from_second": from_second}
+        self.cache_manager.write(
+            self.__class__.__name__, "_fetch_submissions", param_dict, data
+        )
+        logger.debug(f"Writing cache for user {user_id}.")
 
     def _fetch_submissions(
         self, user_id: str, from_second: int, use_cache: bool
