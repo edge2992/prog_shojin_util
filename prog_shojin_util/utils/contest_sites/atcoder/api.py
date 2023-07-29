@@ -6,7 +6,6 @@ from ..abstract import APIInterface
 
 BASE_URL = "https://kenkoooo.com/atcoder/atcoder-api/v3"
 logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.INFO)
 
 
 class AtcoderAPI(APIInterface):
@@ -18,7 +17,7 @@ class AtcoderAPI(APIInterface):
         while True:
             endpoint = f"{BASE_URL}/user/submissions"
             params = {"user": user_id, "from_second": from_second}
-            logger.info(
+            logger.debug(
                 f"Fetching submissions for user {user_id} from {from_second}"
             )
 
@@ -27,12 +26,12 @@ class AtcoderAPI(APIInterface):
 
             submissions = response.json()
             all_submissions.extend(submissions)
-            logger.info(
+            logger.debug(
                 f"Received {len(submissions)} submissions. Total so far: {len(all_submissions)}"
             )
 
             if len(submissions) < self.SUBMISSION_LIMIT:
-                logger.info("No more submissions to fetch")
+                logger.debug("No more submissions to fetch")
                 break
 
             from_second = submissions[-1]["epoch_second"] - 1

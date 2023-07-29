@@ -1,6 +1,6 @@
 import click
 from datetime import datetime, timedelta
-import pandas as pd
+from prog_shojin_util.logging_config import setup_logging
 from prog_shojin_util.scraper.link_collector import LinkCollector
 from prog_shojin_util.services.output_formatter import OutputFormatter
 from prog_shojin_util.services.problem_finder import ProblemFinder
@@ -39,10 +39,21 @@ from prog_shojin_util.services.problem_finder import ProblemFinder
     show_default=True,
     help="Maximum number of problems to return.",
 )
+@click.option("--verbose", is_flag=True, help="Enable verbose/debug logging.")
 def find_problems(
-    atcoder_user, yukicoder_user, target, status, output, since, max_results
+    atcoder_user,
+    yukicoder_user,
+    target,
+    status,
+    output,
+    since,
+    max_results,
+    verbose,
 ):
     """AtCoder Utility Tool for Problems."""
+
+    setup_logging(verbose)
+
     contest_user_data = [
         ("Atcoder", atcoder_user),
         ("Yukicoder", yukicoder_user),
