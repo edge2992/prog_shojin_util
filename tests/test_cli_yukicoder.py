@@ -26,7 +26,7 @@ def mock_fetch_links_yukicoder(mocker):
 @pytest.fixture
 def mock_get_ac_problems_yukicoder(mocker):
     return mocker.patch(
-        "prog_shojin_util.utils.contest_sites.abstract.APIUtils.get_ac_problems",
+        "prog_shojin_util.utils.contest_sites.APIUtils.get_ac_problems",
         return_value=SAMPLE_YUKICODER_AC_PROBLEMS,
     )
 
