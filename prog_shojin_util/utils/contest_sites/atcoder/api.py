@@ -48,11 +48,12 @@ class AtcoderAPI(APIInterface):
 
     def _fetch_submissions(self, user_id: str, from_second: int) -> list[dict]:
         iter_second = from_second
+        all_submissions = []
+
         cached_data = self._read_from_cache(user_id, from_second)
         if cached_data:
-            return cached_data
-
-        all_submissions = []
+            all_submissions.extend(cached_data)
+            iter_second = all_submissions[-1]["epoch_second"] + 1
 
         while True:
             endpoint = f"{BASE_URL}/user/submissions"
@@ -74,7 +75,7 @@ class AtcoderAPI(APIInterface):
                 logger.debug("No more submissions to fetch")
                 break
 
-            iter_second = submissions[-1]["epoch_second"] - 1
+            iter_second = submissions[-1]["epoch_second"] + 1
             time.sleep(1)
 
         self._write_to_cache(user_id, from_second, all_submissions)
