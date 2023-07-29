@@ -15,6 +15,7 @@ logger = logging.getLogger(__name__)
 
 class AtcoderAPI(APIInterface):
     SUBMISSION_LIMIT = 500
+    SUBMISSION_ENDPOINT = f"{BASE_URL}/user/submissions"
 
     def __init__(self):
         self.cache_manager = CacheManager()
@@ -38,6 +39,18 @@ class AtcoderAPI(APIInterface):
         )
         logger.debug(f"Writing cache for user {user_id}.")
 
+    def _get_submissions_from_api(
+        self, user_id: str, from_second: int
+    ) -> list:
+        params = {"user": user_id, "from_second": from_second}
+        logger.debug(
+            f"Fetching submissions for user {user_id} from {from_second}"
+        )
+        response = requests.get(self.SUBMISSION_ENDPOINT, params=params)
+        response.raise_for_status()
+
+        return response.json()
+
     def _fetch_submissions(
         self, user_id: str, from_second: int, use_cache: bool
     ) -> list[dict]:
@@ -51,16 +64,7 @@ class AtcoderAPI(APIInterface):
                 iter_second = all_submissions[-1]["epoch_second"] + 1
 
         while True:
-            endpoint = f"{BASE_URL}/user/submissions"
-            params = {"user": user_id, "from_second": iter_second}
-            logger.debug(
-                f"Fetching submissions for user {user_id} from {iter_second}"
-            )
-
-            response = requests.get(endpoint, params=params)
-            response.raise_for_status()
-
-            submissions = response.json()
+            submissions = self._get_submissions_from_api(user_id, iter_second)
             all_submissions.extend(submissions)
             logger.debug(
                 f"Received {len(submissions)} submissions. Total so far: {len(all_submissions)}"
