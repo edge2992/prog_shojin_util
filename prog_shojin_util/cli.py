@@ -6,40 +6,54 @@ from prog_shojin_util.services.output_formatter import OutputFormatter
 from prog_shojin_util.services.problem_finder import ProblemFinder
 
 
-@click.command()
-@click.option("--atcoder-user", default=None, help="User ID for AtCoder.")
-@click.option(
-    "--yukicoder-user", default=None, help="User Name for Yukicoder."
+@click.command(
+    help="Fetch competitive programming problems based on specified criteria. "
+    "You can filter problems from platforms like AtCoder and Yukicoder "
+    "based on AC status, date range, and other parameters."
 )
-@click.option("-t", "--target", required=True, help="Target URL to process.")
+@click.option(
+    "--atcoder-user",
+    default=None,
+    help="Specify the User ID for AtCoder to filter problems based on the user's activity.",
+)
+@click.option(
+    "--yukicoder-user",
+    default=None,
+    help="Specify the User Name for Yukicoder to filter problems based on the user's activity.",
+)
+@click.option(
+    "-t",
+    "--target",
+    required=True,
+    help="The base URL from which problem links will be collected.",
+)
 @click.option(
     "--status",
     type=click.Choice(["ac", "not-ac", "both"]),
     default="not-ac",
     show_default=True,
-    help="Filter problems based on the AC status.",
+    help="Filter the problems based on their AC (Accepted) status. "
+    "Choose 'ac' for solved problems, 'not-ac' for unsolved problems, and 'both' for all problems.",
 )
 @click.option(
     "--output",
     type=click.Choice(["json", "markdown", "csv"]),
     default="json",
     show_default=True,
-    help="Output format.",
+    help="Select the desired output format for the fetched problems. Available formats are JSON, Markdown, and CSV.",
 )
 @click.option(
     "--since",
     type=click.DateTime(),
-    default=(datetime.now() - timedelta(days=182)).strftime("%Y-%m-%d"),
-    help="Start datetime to filter problems. The format is 'YYYY-MM-DD' or 'YYYY-MM-DD HH:MM:SS'. Default is 6 months ago.",  # noqa: E501
+    default="2012-01-01",
+    help="Filter problems that were available since the specified date. "
+    "Provide the date in 'YYYY-MM-DD' or 'YYYY-MM-DD HH:MM:SS' format. By default, it's set to 2012-01-01.",
 )
 @click.option(
-    "--max-results",
-    type=int,
-    default=500,
-    show_default=True,
-    help="Maximum number of problems to return.",
+    "--verbose",
+    is_flag=True,
+    help="Enable this option to get detailed logging information, useful for debugging.",
 )
-@click.option("--verbose", is_flag=True, help="Enable verbose/debug logging.")
 def find_problems(
     atcoder_user,
     yukicoder_user,
@@ -47,10 +61,9 @@ def find_problems(
     status,
     output,
     since,
-    max_results,
     verbose,
 ):
-    """AtCoder Utility Tool for Problems."""
+    """Competitive Programming Utility Tool for Problems Fetching."""
 
     setup_logging(verbose)
 
@@ -65,7 +78,7 @@ def find_problems(
 
     for contest, user in contest_user_data:
         finder = ProblemFinder(contest, urls)
-        problems = finder.find_problems(user, status, since, max_results)
+        problems = finder.find_problems(user, status, since, True)
         results[contest] = problems
 
     formatter = OutputFormatter(results)
