@@ -32,7 +32,7 @@ jobs:
         run: poetry run tox
 
       - name: Upload coverage reports to Codecov
-        if: contains(env.USING_COVERAGE, matrix.python-version) && matrix.platform == "ubuntu-latest"
+        if: contains(env.USING_COVERAGE, matrix.python-version) && matrix.platform == 'ubuntu-latest'
         uses: codecov/codecov-action@v3
         with:
           fail_ci_if_error: true
