@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [{include = "prog_shojin_util"}]
 
 [tool.poetry.scripts]
-atcoder-util-problem = "prog_shojin_util.__main__:main"
+prog-shojin-util = "prog_shojin_util.__main__:main"
 
 [tool.poetry.dependencies]
 python = "^3.9"
