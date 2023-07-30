@@ -70,7 +70,7 @@ class OutputFormatter:
         return pd.concat(dfs)
 
     def _to_json(self) -> Optional[str]:
-        return self.df.to_json(orient="records")
+        return self.df.to_json(orient="records", indent=2)
 
     def _to_csv(self) -> str:
         return self.df.to_csv()

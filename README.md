@@ -36,7 +36,6 @@ Fetch and organize competitive programming problems from various blogs with ease
 
 `prog_shojin_util` offers integration capabilities with [`atcoder-cli`](https://github.com/Tatamo/atcoder-cli), an essential tool in the competitive programming community. By saving the fetched problems as `contest.acc.json` in a directory and then using `atcoder-cli` in that directory, you can streamline your problem-solving workflow.
 
-
 1. **Create a Workspace for Practice**:
    Begin by setting up a designated workspace for the problems.
 
