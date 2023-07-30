@@ -2,6 +2,7 @@ from datetime import datetime
 
 import click
 
+from prog_shojin_util.cli_config import CliConfig
 from prog_shojin_util.logging_config import setup_logging
 from prog_shojin_util.scraper.link_collector import LinkCollector
 from prog_shojin_util.services.output_formatter import OutputFormatter
@@ -39,10 +40,16 @@ from prog_shojin_util.services.problem_finder import ProblemFinder
 )
 @click.option(
     "--output",
-    type=click.Choice(["json", "markdown", "csv"]),
+    type=click.Choice(["json", "markdown", "csv", "acc_json"]),
     default="json",
     show_default=True,
-    help="Select the desired output format for the fetched problems. Available formats are JSON, Markdown, and CSV.",
+    help=(
+        "Select the output format: "
+        "JSON (Standard format), "
+        "Markdown (Export in Markdown), "
+        "CSV (Export in CSV), "
+        "acc_json (Format used by atcoder-cli tool)."
+    ),
 )
 @click.option(
     "--since",
@@ -66,28 +73,31 @@ def find_problems(
     verbose,
 ):
     """Competitive Programming Utility Tool for Problems Fetching."""
-
     setup_logging(verbose)
 
+    cli_config = CliConfig(
+        atcoder_user=atcoder_user,
+        yukicoder_user=yukicoder_user,
+        target=target,
+        status=status,
+        output=output,
+        since=since,
+    )
+
     contest_user_data = [
-        ("Atcoder", atcoder_user),
-        ("Yukicoder", yukicoder_user),
+        ("Atcoder", cli_config.atcoder_user),
+        ("Yukicoder", cli_config.yukicoder_user),
     ]
 
     urls = LinkCollector(target).fetch_links()
     since = int(datetime.timestamp(since))
     results = {}  # {contest: [problems]}
 
+    # コンテストごとに問題を取得
     for contest, user in contest_user_data:
         finder = ProblemFinder(contest, urls)
         problems = finder.find_problems(user, status, since, True)
         results[contest] = problems
 
-    formatter = OutputFormatter(results)
-
-    if output == "json":
-        click.echo(formatter.to_json())
-    elif output == "markdown":
-        click.echo(formatter.to_markdown())
-    elif output == "csv":
-        click.echo(formatter.to_csv())
+    formatter = OutputFormatter(results, cli_config)
+    click.echo(formatter.display())
