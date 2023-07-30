@@ -39,10 +39,16 @@ from prog_shojin_util.services.problem_finder import ProblemFinder
 )
 @click.option(
     "--output",
-    type=click.Choice(["json", "markdown", "csv"]),
+    type=click.Choice(["json", "markdown", "csv", "acc_json"]),
     default="json",
     show_default=True,
-    help="Select the desired output format for the fetched problems. Available formats are JSON, Markdown, and CSV.",
+    help=(
+        "Select the output format: "
+        "JSON (Standard format), "
+        "Markdown (Export in Markdown), "
+        "CSV (Export in CSV), "
+        "acc_json (Format used by atcoder-cli tool)."
+    ),
 )
 @click.option(
     "--since",
@@ -91,3 +97,5 @@ def find_problems(
         click.echo(formatter.to_markdown())
     elif output == "csv":
         click.echo(formatter.to_csv())
+    elif output == "acc_json":
+        click.echo(formatter.to_acc_json())

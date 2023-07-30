@@ -1,3 +1,4 @@
+import json
 from dataclasses import dataclass
 from typing import Optional
 
@@ -19,7 +20,7 @@ class OutputFormatter:
     parsers: dict[str, ParserInterface] = {}
 
     def __init__(self, data: dict[str, list]):
-        self.df = self._format(data)
+        self.df: pd.DataFrame = self._format(data)
 
     def _get_parser(self, contest) -> ParserInterface:
         if contest in self.parsers:
@@ -62,3 +63,23 @@ class OutputFormatter:
 
     def to_markdown(self) -> Optional[str]:
         return self.df.to_markdown()
+
+    def to_acc_json(self) -> Optional[str]:
+        # 基本的な出力構造を作成
+        result = {"contest": {"id": None, "title": None, "url": None}, "tasks": []}
+
+        result["contest"]["id"] = "prog_shojin_util"
+        result["contest"]["title"] = "prog_shojin_util"
+        result["contest"]["url"] = "query_url (TODO)"
+
+        # DataFrameの各行に対してタスク情報を作成
+        for _, row in self.df.query("contest == 'Atcoder'").iterrows():
+            task = {
+                "id": row["problem"],
+                "label": row["problem"],
+                "title": row["problem"],
+                "url": row["url"],
+            }
+            result["tasks"].append(task)
+
+        return json.dumps(result, indent=2)
