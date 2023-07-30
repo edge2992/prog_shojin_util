@@ -3,6 +3,8 @@ from typing import Optional
 import requests
 from bs4 import BeautifulSoup
 
+from prog_shojin_util.utils.url_tools import clean_url
+
 
 class LinkCollector:
     def __init__(self, base_url: str):
@@ -31,10 +33,14 @@ class LinkCollector:
         ]
         return links
 
+    def _clean_links(self, links: list[str]) -> list[str]:
+        return [clean_url(link) for link in links]
+
     def fetch_links_from_file(self, file_path: str):
         with open(file_path, "r") as f:
             content = f.read()
 
         soup = BeautifulSoup(content, "html.parser")
         links = self._extract_links(soup)
-        return links
+        cleaned_links = self._clean_links(links)
+        return cleaned_links
