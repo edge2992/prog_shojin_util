@@ -27,13 +27,13 @@ def test_to_acc_json():
   "tasks": [
     {
       "id": "abc001_a",
-      "label": "abc001_a",
+      "label": "0",
       "title": "abc001_a",
       "url": "https://atcoder.jp/contests/abc001/tasks/abc001_a"
     },
     {
       "id": "abc001_b",
-      "label": "abc001_b",
+      "label": "1",
       "title": "abc001_b",
       "url": "https://atcoder.jp/contests/abc001/tasks/abc001_b"
     }

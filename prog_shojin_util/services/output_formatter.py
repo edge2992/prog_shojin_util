@@ -73,10 +73,10 @@ class OutputFormatter:
         result["contest"]["url"] = "query_url (TODO)"
 
         # DataFrameの各行に対してタスク情報を作成
-        for _, row in self.df.query("contest == 'Atcoder'").iterrows():
+        for index, row in self.df.query("contest == 'Atcoder'").iterrows():
             task = {
                 "id": row["problem"],
-                "label": row["problem"],
+                "label": f"{index}_{row['problem']}",
                 "title": row["problem"],
                 "url": row["url"],
             }
